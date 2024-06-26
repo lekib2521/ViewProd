@@ -228,7 +228,7 @@ async function main(req, res) {
         }
         const substrings = extractSubstringsToObjects(botresp, req.query.stage);
         console.log(substrings);
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+        // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
         res.send(substrings);
     } catch (err) {
         console.error(err);
