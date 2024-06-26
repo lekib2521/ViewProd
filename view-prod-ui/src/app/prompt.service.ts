@@ -14,7 +14,7 @@ export class PromptService {
       .set('pain',prodInput.pain) 
       .set('stage', prodInput.stage)
     };
-    return this.http.get<any>('http://localhost:3000/', options)
+    return this.http.get<any>('https://viewprod-kzhjzxd4pa-uc.a.run.app', options)
   }
 
   assess(prod:any,prodParam:any){
@@ -25,6 +25,6 @@ export class PromptService {
       .set('stage', prodParam.stage)
       .set('features', prod.features)
     };
-    return this.http.get<any>('http://localhost:3000/', options)
+    return this.http.get<any>('https://viewprod-kzhjzxd4pa-uc.a.run.app', options)
   }
 }

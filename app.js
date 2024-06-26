@@ -1,7 +1,7 @@
 
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 8080;
 var cors = require('cors');
 app.use(cors());
 app.use(express.json({ type: "*/*", limit: '50mb' }));
@@ -24,12 +24,12 @@ const { OpenAIFunctionsAgentOutputParser } = require("langchain/agents/openai/ou
 const { formatToOpenAIFunctionMessages } = require("langchain/agents/format_scratchpad");
 
 // set up the MongoDB client
-const dbClient = new MongoClient(process.env.MONGODB_URI);
+const dbClient = new MongoClient("mongodb+srv://cosmicworksadmin:shwan%40spence5@dg3bj4g7op62fkq-mongo.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000");
 // set up the Azure OpenAI client 
 const embeddingsDeploymentName = "embeddings";
 const completionsDeploymentName = "completions";
-const aoaiClient = new OpenAIClient("https://" + process.env.AZURE_OPENAI_API_INSTANCE_NAME + ".openai.azure.com/",
-    new AzureKeyCredential(process.env.AZURE_OPENAI_API_KEY));
+const aoaiClient = new OpenAIClient("https://" + "dg3bj4g7op62fkq-openai" + ".openai.azure.com/",
+    new AzureKeyCredential("76f0bf1f3f5c4734a811c006a0f138e7"));
 // set up the Azure Cosmos DB vector store using the initialized MongoDB client
 const azureCosmosDBConfig = {
     client: dbClient,
