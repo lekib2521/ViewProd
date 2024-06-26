@@ -320,16 +320,16 @@ async function buildAgentExecutor() {
         func: async (input) => await retrieverChain.invoke(input),
     });
 
-    // A tool that will lookup a product by its SKU. Note that this is not a vector store lookup.
+    // A tool that will lookup a product by its description. Note that this is not a vector store lookup.
     const productLookupTool = new DynamicTool({
-        name: "product_sku_lookup_tool",
-        description: `Searches Cosmic Works product information for a single product by its SKU.
+        name: "product_description_lookup_tool",
+        description: `Searches Cosmic Works product information for a product by its description.
                     Returns the product information in JSON format.
                     If the product is not found, returns null.`,
         func: async (input) => {
             const db = dbClient.db("cosmic_works");
             const products = db.collection("products");
-            const doc = await products.findOne({ "sku": input });            
+            const doc = await products.findOne({ "description": input });            
             if (doc) {                
                 //remove the contentVector property to save on tokens
                 delete doc.contentVector;
@@ -340,7 +340,7 @@ async function buildAgentExecutor() {
 
     // Generate OpenAI function metadata to provide to the LLM
     // The LLM will use this metadata to decide which tool to use based on the description.
-    const tools = [productsRetrieverTool, productLookupTool];
+    const tools = [productsRetrieverTool];
     const modelWithFunctions = chatModel.bind({
         functions: tools.map((tool) => convertToOpenAIFunction(tool)),
     });
